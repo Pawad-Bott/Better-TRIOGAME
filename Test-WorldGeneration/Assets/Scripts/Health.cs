@@ -3,10 +3,9 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour, Iinteractebole
 {
-    [SerializeField] private UnityEvent TakenDamage;
-    [SerializeField] private float CurrentHealth;
     [SerializeField] private float MaxHealth = 100f;
-
+    [SerializeField] private UnityEvent TakenDamage;
+    private float CurrentHealth;
     private void Start()
     {
         CurrentHealth = MaxHealth;

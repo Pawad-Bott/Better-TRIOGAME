@@ -1,19 +1,23 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
-public class Log : MonoBehaviour
+public class Log : MonoBehaviour, Iinteractebole
 {
+    [SerializeField] private float StartFalingForce;
     private Rigidbody rb;
-    void Awake()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
 
         GameObject ClosestPlayer = GetClosestObject(transform.position, PlayerManager.Instance.Players);
 
-        Vector3 Force = ClosestPlayer.transform.forward;
+        if (ClosestPlayer == null) return;
 
-        rb.AddForceAtPosition(-Force, transform.up * 2, ForceMode.Force);
+        Vector3 Force = ClosestPlayer.transform.forward * StartFalingForce;
+
+        Vector3 TopOfLog = transform.position + transform.up * (transform.localScale.y * 0.5f);
+
+        rb.AddForceAtPosition(-Force, TopOfLog, ForceMode.Impulse);
     }
 
     GameObject GetClosestObject(Vector3 position, List<GameObject> objects)
@@ -34,5 +38,9 @@ public class Log : MonoBehaviour
             }
         }
         return closest;
+    }
+    public void Interact()
+    {
+        // here is the logic for the player grabing the log!
     }
 }
