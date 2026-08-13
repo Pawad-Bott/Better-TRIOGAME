@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 8237854420636826299}
   - component: {fileID: 4600907858830861744}
   - component: {fileID: 442683604105910325}
+  - component: {fileID: 8497290102781816240}
+  - component: {fileID: 4559597785450900204}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -53,6 +55,9 @@ MonoBehaviour:
   deceleration: 20
   acceleration: 15
   MaxStepLenth: 10
+  IsMoving:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &745278034762655007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,3 +216,37 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &8497290102781816240
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923223631269932398}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: efa1f42e4900047408e528a6eee20c75, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4559597785450900204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923223631269932398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 205a6702a8cd20d47a4095f96141bd75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationControler

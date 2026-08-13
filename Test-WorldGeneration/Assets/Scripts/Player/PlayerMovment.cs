@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
@@ -10,6 +11,7 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private float deceleration = 20f;
     [SerializeField] private float acceleration = 15f;
     [SerializeField] private float MaxStepLenth = 10f;
+    [SerializeField] private UnityEvent IsMoving;
     private CharacterController Controller;
     private PlayerInteractHandeler playerInteractHandeler;
     private Vector3 Direction;
@@ -27,6 +29,8 @@ public class PlayerMovment : MonoBehaviour
         PlayerVelocity = Vector3.MoveTowards(PlayerVelocity, targetVelocity, MaxStepLenth * Time.deltaTime);
 
         Controller.SimpleMove(PlayerVelocity * MoveSpeed);
+
+        if (PlayerVelocity.magnitude < 0.01) IsMoving.Invoke(); //play the walk animation
 
         RotatePlayer();
     }
