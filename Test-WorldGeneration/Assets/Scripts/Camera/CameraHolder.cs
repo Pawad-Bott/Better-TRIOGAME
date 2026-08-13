@@ -36,7 +36,6 @@ public class CameraHolder : MonoBehaviour
         {
             bounds.Encapsulate(Targets[i].transform.position);
         }
-
         return bounds.size.x;
     }
     Vector3 GetCenterPoint()

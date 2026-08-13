@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2876308226801477159}
-  - component: {fileID: 6119252546026972266}
+  - component: {fileID: 2784673167646544668}
   - component: {fileID: 745278034762655007}
   - component: {fileID: 221611058004120297}
   - component: {fileID: 8237854420636826299}
@@ -37,7 +37,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6119252546026972266
+--- !u!114 &2784673167646544668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,8 +48,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a24243e38cba87e44b15817939f21c3c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
-  MoveSpeed: 5
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovment
+  MoveSpeed: 7
   deceleration: 20
   acceleration: 15
   MaxStepLenth: 10
@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractHandeler
   Grabrange: 1.5
+  GrabForce: 24.01
 --- !u!33 &221611058004120297
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -175,7 +176,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6119252546026972266}
+      - m_Target: {fileID: 2784673167646544668}
         m_TargetAssemblyTypeName: PlayerMovment, Assembly-CSharp
         m_MethodName: MovePlayer
         m_Mode: 0

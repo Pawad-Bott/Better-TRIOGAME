@@ -1,14 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Log : MonoBehaviour, Iinteractebole
+public class Log : ForceGrabLogic
 {
     [SerializeField] private float StartFalingForce;
-    private Rigidbody rb;
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-
         GameObject ClosestPlayer = GetClosestObject(transform.position, PlayerManager.Instance.Players);
 
         if (ClosestPlayer == null) return;
@@ -38,9 +35,5 @@ public class Log : MonoBehaviour, Iinteractebole
             }
         }
         return closest;
-    }
-    public void Interact()
-    {
-        // here is the logic for the player grabing the log!
     }
 }

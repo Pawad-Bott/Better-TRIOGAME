@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   MaxHealth: 3
-  TakenDamage:
+  Dead:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1910516271138622173}
