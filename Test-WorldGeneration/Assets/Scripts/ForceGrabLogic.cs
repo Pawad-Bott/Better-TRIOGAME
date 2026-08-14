@@ -16,7 +16,4 @@ public class ForceGrabLogic : MonoBehaviour, IInteractebole
 
         rb.AddForceAtPosition(force, InteractPoint, ForceMode.Force);
     }
-    public void TakeDamage(int Amt)
-    {
-    }
 }

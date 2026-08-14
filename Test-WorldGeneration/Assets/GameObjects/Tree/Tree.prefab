@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 1879678983274546126}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -159,12 +159,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   MaxHealth: 3
+  HealthRegen: 0
+  HealtRegenInterval: 0
   Dead:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1910516271138622173}
         m_TargetAssemblyTypeName: ChopingDownTree, Assembly-CSharp
         m_MethodName: ChopdingDownTree
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  TakenDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 745278034762655007, guid: 667204c058c855f40a1cc361e0108633, type: 3}
+        m_TargetAssemblyTypeName: PlayerInteractHandeler, Assembly-CSharp
+        m_MethodName: StartChopping
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

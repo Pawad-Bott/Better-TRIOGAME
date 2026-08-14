@@ -1,9 +1,9 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInteractHandeler))]
+[RequireComponent(typeof(Animator))]
 public class PlayerMovment : MonoBehaviour
 {
     [Header("Move settings")]
@@ -11,16 +11,17 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private float deceleration = 20f;
     [SerializeField] private float acceleration = 15f;
     [SerializeField] private float MaxStepLenth = 10f;
-    [SerializeField] private UnityEvent IsMoving;
     private CharacterController Controller;
     private PlayerInteractHandeler playerInteractHandeler;
     private Vector3 Direction;
     private Vector3 PlayerVelocity;
-
+    private static Animator PlayerAnimatior;
+    private static readonly int SpeedHash = Animator.StringToHash("Speed");
     private void Awake()
     {
         Controller = GetComponent<CharacterController>();
         playerInteractHandeler = GetComponent<PlayerInteractHandeler>();
+        PlayerAnimatior = GetComponent<Animator>();
     }
     void FixedUpdate()
     {
@@ -30,7 +31,7 @@ public class PlayerMovment : MonoBehaviour
 
         Controller.SimpleMove(PlayerVelocity * MoveSpeed);
 
-        if (PlayerVelocity.magnitude < 0.01) IsMoving.Invoke(); //play the walk animation
+        PlayerAnimatior.SetFloat(SpeedHash, Direction.magnitude);
 
         RotatePlayer();
     }

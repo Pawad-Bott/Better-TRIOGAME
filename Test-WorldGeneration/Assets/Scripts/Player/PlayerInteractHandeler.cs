@@ -1,7 +1,8 @@
-using System;
+using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(Animator))]
 public class PlayerInteractHandeler : MonoBehaviour
 {
     [Header("Interact settings")]
@@ -14,9 +15,20 @@ public class PlayerInteractHandeler : MonoBehaviour
     public Vector3 HandPoint { get; private set; }
     public Transform GrabObjectTranform { get; private set; }
     private IInteractebole IInteractebole;
+    private IDamagebole damagebole;
+    private static Animator PlayerAnimatior;
+    private static readonly int ChopTreeHash = Animator.StringToHash("ChoppTree");
+    public bool IsChoppingAnimationPlaying { get; private set; }
+    [SerializeField] private ParticleSystem[] ChopTreeParticals;
+    private void Awake()
+    {
+        PlayerAnimatior = GetComponent<Animator>();
+    }
+
     private void Start()
     {
         IsGrabing = false;
+        IsChoppingAnimationPlaying = false;
     }
     private void Update()
     {
@@ -42,19 +54,26 @@ public class PlayerInteractHandeler : MonoBehaviour
         Debug.DrawLine(HandPoint, WorldGrabPoint, Color.white);
 
         IInteractebole?.Interact(GrabForce, HandPoint, WorldGrabPoint);
-
     }
 
     public void Interact(InputAction.CallbackContext callbackContext)
     {
-        bool HasSomthingToGrab = CalculateRay();
+        bool HasSomthingToInteract = CalculateRay();
 
-        if (callbackContext.started && HasSomthingToGrab) IsGrabing = true;
-        if (callbackContext.canceled && HasSomthingToGrab) IsGrabing = false;
+        if (callbackContext.started && HasSomthingToInteract) IsGrabing = true;
+        if (callbackContext.canceled) IsGrabing = false;
 
         if (!callbackContext.performed) return;
+        if (IsChoppingAnimationPlaying) return;
 
-        IInteractebole?.TakeDamage(1);
+        if (damagebole == null) return;
+
+        damagebole.TakeDamage(1);
+
+        foreach (ParticleSystem ChoptreePartical in ChopTreeParticals)
+        {
+            Instantiate(ChoptreePartical, transform.position, quaternion.identity);
+        }
     }
 
     /// <summary>
@@ -76,17 +95,30 @@ public class PlayerInteractHandeler : MonoBehaviour
         if (!Physics.Raycast(ray, out RaycastHit hitInfo, Grabrange))
         {
             IInteractebole = null;
+            damagebole = null;
             return false;
         }
         // Everyting under here is where the ray hitts something
 
         IInteractebole = hitInfo.collider.GetComponent<IInteractebole>();
+        damagebole = hitInfo.collider.GetComponent<IDamagebole>();
 
-        if (IInteractebole == null) return false;
+        if (IInteractebole == null && damagebole == null) return false;
 
         GrabObjectTranform = hitInfo.transform;
         LocalGrabPoint = GrabObjectTranform.transform.InverseTransformPoint(hitInfo.point);
 
         return true;
+    }
+
+    public void FinishChopping()
+    {
+        IsChoppingAnimationPlaying = false;
+        PlayerAnimatior.SetBool(ChopTreeHash, false);
+    }
+    public void StartChopping()
+    {
+        IsChoppingAnimationPlaying = true;
+        PlayerAnimatior.SetBool(ChopTreeHash, true);
     }
 }
