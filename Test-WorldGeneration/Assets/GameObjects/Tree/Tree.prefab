@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 1521941286730044345}
   - component: {fileID: 1257559499898023855}
   - component: {fileID: 1910516271138622173}
+  - component: {fileID: 2668616103353039629}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -61,11 +62,12 @@ Transform:
   m_GameObject: {fileID: 1879678983274546126}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.13}
   m_LocalScale: {x: 1, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2649868449192520168}
+  - {fileID: 5041725434764506483}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1359617275444274067
@@ -206,3 +208,46 @@ MonoBehaviour:
   TreeStump: {fileID: 1879678983274546126, guid: 1e29726724aca2b4fa70a73973674466, type: 3}
   Log: {fileID: 1879678983274546126, guid: 1214df2fe93f2d54b8fb9ad0b1741507, type: 3}
   TreeStumpPosition: {fileID: 2649868449192520168}
+--- !u!114 &2668616103353039629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879678983274546126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 893ade68c612d8445b23fc9b989b0d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AddCameraChake
+--- !u!1 &5703019459612854443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5041725434764506483}
+  m_Layer: 0
+  m_Name: Spawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5041725434764506483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703019459612854443}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7882028457911032609}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

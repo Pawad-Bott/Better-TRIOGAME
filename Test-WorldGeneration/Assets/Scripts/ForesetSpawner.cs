@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class TreeSpawner : MonoBehaviour
 {
+    [SerializeField] private bool draGismos = false;
     [Header("Spawn Settings")]
     public float SpawnNothingChance = 30f;
     [Space]
@@ -14,7 +15,7 @@ public class TreeSpawner : MonoBehaviour
     void Start()
     {
         // Small radius = many possible spawn locations.
-        points = PoissonDiskSampling.GeneratePoints(1f, new Vector2(SpawnArea.size.x, SpawnArea.size.z)); // here are all the spawnpoints chosen
+        points = PoissonDiskSampling.GeneratePoints(0.5f, new Vector2(SpawnArea.size.x, SpawnArea.size.z)); // here are all the spawnpoints chosen
 
         TrySpawnAssets();
     }
@@ -25,13 +26,38 @@ public class TreeSpawner : MonoBehaviour
 
         sortedTypes.Sort((a, b) => b.SpawnRadius.CompareTo(a.SpawnRadius));
 
-        foreach (SpawnType type in sortedTypes)
+        foreach (Vector2 point in points)
         {
-            foreach (Vector2 point in points)
-            {
-                if (Random.Range(0f, 100f) > type.SpawnChance) continue;
+            // Total chans för alla SpawnTypes
+            float totalSpawnChance = 0f;
 
-                TrySpawn(point, type);
+            foreach (SpawnType type in sortedTypes)
+            {
+                totalSpawnChance += type.SpawnChance;
+            }
+
+            // Nothing + alla SpawnTypes
+            float totalChance = SpawnNothingChance + totalSpawnChance;
+
+            float randomValue = Random.Range(0f, totalChance);
+
+            // Om slumpen hamnar inom Nothing-chansen
+            if (randomValue < SpawnNothingChance)
+                continue;
+
+            // Ta bort Nothing från random-värdet
+            randomValue -= SpawnNothingChance;
+
+            // Hitta vilken SpawnType som valdes
+            foreach (SpawnType type in sortedTypes)
+            {
+                if (randomValue < type.SpawnChance)
+                {
+                    TrySpawn(point, type);
+                    break;
+                }
+
+                randomValue -= type.SpawnChance;
             }
         }
     }
@@ -55,19 +81,57 @@ public class TreeSpawner : MonoBehaviour
 
         GameObject prefab = type.Prefabs[Random.Range(0, type.Prefabs.Length)];
 
-        Instantiate(prefab, hit.point, prefab.transform.rotation, transform);
+        //here we calculate the bottom of the mesh and spawn the object at that point so it doesn't go thrue the ground!
+        GameObject spawned = Instantiate(prefab, hit.point, prefab.transform.rotation, transform);
+        Bounds bounds = GetBounds(spawned);
+        float bottomOffset = hit.point.y - bounds.min.y;
+        spawned.transform.position += Vector3.up * bottomOffset;
+
 
         spawnedObjects.Add(new SpawnedObject() { Position = hit.point, Radius = type.SpawnRadius });
+    }
+    Bounds GetBounds(GameObject obj)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+
+        if (renderers.Length == 0)
+            return new Bounds(obj.transform.position, Vector3.zero);
+
+        Bounds bounds = renderers[0].bounds;
+
+        for (int i = 1; i < renderers.Length; i++)
+        {
+            bounds.Encapsulate(renderers[i].bounds);
+        }
+
+        return bounds;
+    }
+    private void OnDrawGizmos()
+    {
+        if (!draGismos) return;
+
+        if (points == null || SpawnArea == null) return;
+
+        Gizmos.color = Color.red;
+
+        foreach (Vector2 point in points)
+        {
+            Vector3 localPos = new Vector3(point.x - SpawnArea.size.x / 2f, 0, point.y - SpawnArea.size.z / 2f);
+
+            Vector3 worldPos = SpawnArea.transform.TransformPoint(localPos);
+
+            Gizmos.DrawSphere(worldPos, 0.1f);
+        }
     }
 }
 [System.Serializable]
 public class SpawnType
 {
-    public string Name;
-    public GameObject[] Prefabs;
-    public float SpawnRadius = 2f;
+    [field: SerializeField] public string Name { get; private set; }
+    [field: SerializeField] public GameObject[] Prefabs { get; private set; }
+    [field: SerializeField] public float SpawnRadius { get; private set; }
     [Range(0, 100)]
-    public float SpawnChance = 0.5f;
+    [field: SerializeField] public float SpawnChance { get; private set; }
 }
 public class SpawnedObject
 {

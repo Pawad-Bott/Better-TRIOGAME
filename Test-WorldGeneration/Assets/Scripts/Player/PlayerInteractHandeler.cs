@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Video;
 
 [RequireComponent(typeof(Animator))]
 public class PlayerInteractHandeler : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerInteractHandeler : MonoBehaviour
     [Header("Interact settings")]
     [SerializeField] private float Grabrange = 4f;
     [SerializeField] private float GrabForce = 2f;
+    [SerializeField] private float SphereCastSize = 1f;
     public bool IsGrabing { get; private set; }
     public bool HasInteractable => IInteractebole != null;
     public Vector3 LocalGrabPoint { get; private set; } //LocalGrabPoint är den punkt på objectet som spelaren grabar och den är i localspace till objectet
@@ -19,7 +21,8 @@ public class PlayerInteractHandeler : MonoBehaviour
     private static Animator PlayerAnimatior;
     private static readonly int ChopTreeHash = Animator.StringToHash("ChoppTree");
     public bool IsChoppingAnimationPlaying { get; private set; }
-    [SerializeField] private ParticleSystem[] ChopTreeParticals;
+    [Header("Particals")]
+    [SerializeField] private ParticleSystem ChopTreeParticals;
     private void Awake()
     {
         PlayerAnimatior = GetComponent<Animator>();
@@ -46,6 +49,7 @@ public class PlayerInteractHandeler : MonoBehaviour
             return;
         }
 
+        // it's neded to Convert The localGrabpoint to worldSpace so the point folows the object we wanna grab
         WorldGrabPoint = GrabObjectTranform.TransformPoint(LocalGrabPoint);
 
         HandPoint = transform.position + transform.forward * Grabrange + transform.up * transform.localScale.y;
@@ -69,11 +73,14 @@ public class PlayerInteractHandeler : MonoBehaviour
         if (damagebole == null) return;
 
         damagebole.TakeDamage(1);
+        SpawnChoppTreeParticals();
+    }
+    private void SpawnChoppTreeParticals()
+    {
+        Quaternion rotation = transform.rotation * Quaternion.Euler(-90f, 0f, 0f);
+        Vector3 position = transform.position + transform.up * transform.localScale.y + transform.forward * 0.5f;
 
-        foreach (ParticleSystem ChoptreePartical in ChopTreeParticals)
-        {
-            Instantiate(ChoptreePartical, transform.position, quaternion.identity);
-        }
+        Instantiate(ChopTreeParticals, position, rotation);
     }
 
     /// <summary>
@@ -90,9 +97,9 @@ public class PlayerInteractHandeler : MonoBehaviour
         {
             origin = transform.position + transform.up * transform.localScale.y,
             direction = transform.forward
-        };
 
-        if (!Physics.Raycast(ray, out RaycastHit hitInfo, Grabrange))
+        };
+        if (!Physics.SphereCast(ray, SphereCastSize, out RaycastHit hitInfo, Grabrange))
         {
             IInteractebole = null;
             damagebole = null;
@@ -120,5 +127,37 @@ public class PlayerInteractHandeler : MonoBehaviour
     {
         IsChoppingAnimationPlaying = true;
         PlayerAnimatior.SetBool(ChopTreeHash, true);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 origin = transform.position + transform.up * transform.localScale.y;
+        Vector3 direction = transform.forward;
+        Vector3 end = origin + direction * Grabrange;
+
+        Gizmos.color = HasInteractable ? Color.green : Color.red;
+
+        Gizmos.DrawWireSphere(origin, SphereCastSize);
+        Gizmos.DrawWireSphere(end, SphereCastSize);
+
+        Gizmos.DrawLine(
+            origin + transform.right * SphereCastSize,
+            end + transform.right * SphereCastSize
+        );
+
+        Gizmos.DrawLine(
+            origin - transform.right * SphereCastSize,
+            end - transform.right * SphereCastSize
+        );
+
+        Gizmos.DrawLine(
+            origin + transform.up * SphereCastSize,
+            end + transform.up * SphereCastSize
+        );
+
+        Gizmos.DrawLine(
+            origin - transform.up * SphereCastSize,
+            end - transform.up * SphereCastSize
+        );
     }
 }
