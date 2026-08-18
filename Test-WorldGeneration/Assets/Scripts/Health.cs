@@ -10,7 +10,7 @@ public class Health : MonoBehaviour, IDamagebole
     [SerializeField] private float HealtRegenInterval = 0.5f;
     [Header("Events")]
     [SerializeField] private UnityEvent Dead;
-    [SerializeField] private UnityEvent TakenDamage;
+    [SerializeField] private UnityEvent<float> TakenDamage;
     private float CurrentHealth;
     private void Start()
     {
@@ -34,11 +34,11 @@ public class Health : MonoBehaviour, IDamagebole
 
         if (CurrentHealth > 0)
         {
-            TakenDamage.Invoke();
+            TakenDamage.Invoke(CurrentHealth);
         }
         else
         {
-            TakenDamage.Invoke();
+            TakenDamage.Invoke(CurrentHealth);
             Dead.Invoke();
         }
     }
