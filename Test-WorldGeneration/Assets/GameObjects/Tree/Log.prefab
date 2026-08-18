@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7882028457911032609}
   - component: {fileID: 6062915852820166063}
   - component: {fileID: 7063930673164311170}
+  - component: {fileID: 5483682958829534534}
   - component: {fileID: 6675206871937708903}
   - component: {fileID: 1521941286730044345}
   - component: {fileID: 8331117103638046439}
@@ -63,23 +64,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893ade68c612d8445b23fc9b989b0d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::treeFallDMG
-  groundPartical: {fileID: 0}
-  treeHitPartical: {fileID: 0}
-  CameraChake:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &5483682958829534534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879678983274546126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f9533e6793bd1468124a57edbc107e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Waterforce
+  WaterPuchForce: 9
 --- !u!33 &6675206871937708903
 MeshFilter:
   m_ObjectHideFlags: 0

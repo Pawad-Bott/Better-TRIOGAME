@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,7 @@ public class PlayerMovment : MonoBehaviour
     private Vector3 PlayerVelocity;
     private static Animator PlayerAnimatior;
     private static readonly int SpeedHash = Animator.StringToHash("Speed");
+    private static readonly int SwimHash = Animator.StringToHash("Swim");
     private void Awake()
     {
         Controller = GetComponent<CharacterController>();
@@ -32,6 +34,8 @@ public class PlayerMovment : MonoBehaviour
         Controller.SimpleMove(PlayerVelocity * MoveSpeed);
 
         PlayerAnimatior.SetFloat(SpeedHash, Direction.magnitude);
+
+        PlayerAnimatior.SetBool(SwimHash, PlayerInWater());
 
         RotatePlayer();
     }
@@ -58,5 +62,23 @@ public class PlayerMovment : MonoBehaviour
     public void MovePlayer(InputAction.CallbackContext callbackContext)
     {
         Direction = callbackContext.ReadValue<Vector2>();
+    }
+
+    /// <summary>
+    /// Draws a ray from the players feet and check if hes in water or not
+    /// </summary>
+    /// <returns>true if the player is in water</returns>
+    private bool PlayerInWater()
+    {
+        Ray ray = new Ray
+        {
+            origin = transform.position,
+            direction = -transform.up
+
+        };
+
+        if (!Physics.Raycast(ray, out RaycastHit hitInfo, 1)) return false;
+
+        return hitInfo.collider.CompareTag("Water");
     }
 }
