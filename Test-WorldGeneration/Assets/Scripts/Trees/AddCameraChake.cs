@@ -6,7 +6,7 @@ public class AddCameraChake : MonoBehaviour
     private CameraHolder cameraHolder;
     private void Awake()
     {
-        camera = Camera.main;
+        camera = gameObject.GetComponent<Camera>();
         cameraHolder = camera.GetComponentInParent<CameraHolder>();
         enabled = true;
     }
@@ -25,7 +25,6 @@ public class AddCameraChake : MonoBehaviour
         {
             //stun the player here
         }
-
 
     }
 }

@@ -1,7 +1,6 @@
-using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Video;
 
 [RequireComponent(typeof(Animator))]
 public class PlayerInteractHandeler : MonoBehaviour
@@ -11,11 +10,11 @@ public class PlayerInteractHandeler : MonoBehaviour
     [SerializeField] private float GrabForce = 2f;
     [SerializeField] private float SphereCastSize = 1f;
     public bool IsGrabing { get; private set; }
-    public bool HasInteractable => IInteractebole != null;
     public Vector3 LocalGrabPoint { get; private set; } //LocalGrabPoint är den punkt på objectet som spelaren grabar och den är i localspace till objectet
     public Vector3 WorldGrabPoint { get; private set; }
     public Vector3 HandPoint { get; private set; }
     public Transform GrabObjectTranform { get; private set; }
+    public bool HasInteractable => IInteractebole != null;
     private IInteractebole IInteractebole;
     private IDamagebole damagebole;
     private static Animator PlayerAnimatior;
@@ -27,7 +26,6 @@ public class PlayerInteractHandeler : MonoBehaviour
     {
         PlayerAnimatior = GetComponent<Animator>();
     }
-
     private void Start()
     {
         IsGrabing = false;
@@ -35,7 +33,7 @@ public class PlayerInteractHandeler : MonoBehaviour
     }
     private void Update()
     {
-        CalculateRay();
+        //CalculateRay();
 
         if (!IsGrabing)
         {

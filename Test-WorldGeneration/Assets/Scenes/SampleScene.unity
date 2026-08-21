@@ -624,10 +624,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3facb6d2bcb794eaa2f0a3a57f3abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ForesetSpawner
-  draGismos: 0
+  draGismos: 1
   SpawnNothingChance: 95
   SpawnTypes:
-  - <Name>k__BackingField: Tree
+  - <Name>k__BackingField: Stone
     <Prefabs>k__BackingField:
     - {fileID: 1879678983274546126, guid: 46b033222e8a27c41b7e1ae2c03f494d, type: 3}
     <SpawnRadius>k__BackingField: 2

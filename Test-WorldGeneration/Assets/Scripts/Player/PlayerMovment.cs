@@ -39,6 +39,7 @@ public class PlayerMovment : MonoBehaviour
 
         RotatePlayer();
     }
+
     private void RotatePlayer()
     {
         Quaternion targetRotation;

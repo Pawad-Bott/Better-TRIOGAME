@@ -6,7 +6,7 @@ public class ChopingDownTree : MonoBehaviour
     [SerializeField] private GameObject Log;
     public void ChopdingDownTree()
     {
-        var DeadTreeParent = new GameObject("DeadTree");
+        GameObject DeadTreeParent = new GameObject("DeadTree");
 
         Vector3 LogPosition = transform.position;
         LogPosition.y = 0;

@@ -45,7 +45,8 @@ GameObject:
   - component: {fileID: 1257559499898023855}
   - component: {fileID: 1910516271138622173}
   - component: {fileID: 2668616103353039629}
-  - component: {fileID: 733684070550723291}
+  - component: {fileID: 4933693087069029237}
+  - component: {fileID: 8381732933303380809}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -102,7 +103,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 604e7bc31e3d0ef41af1820c32951a14, type: 2}
+  - {fileID: 2100000, guid: 8b08c96b1ec9fd2428e8d08975e22d8b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2346d91956554d42b5bfe7d9c9bb952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  MaxHealth: 3
+  <MaxHealth>k__BackingField: 3
   HealthRegen: 0
   HealtRegenInterval: 0
   Dead:
@@ -163,6 +164,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: PlayerInteractHandeler, Assembly-CSharp
         m_MethodName: StartChopping
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4933693087069029237}
+        m_TargetAssemblyTypeName: TreeAnimatior, Assembly-CSharp
+        m_MethodName: AnimateTree
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -197,7 +210,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893ade68c612d8445b23fc9b989b0d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AddCameraChake
---- !u!65 &733684070550723291
+--- !u!114 &4933693087069029237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879678983274546126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7fe77f385764aa4b89cd884415444fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TreeAnimatior
+  TreeChopStages:
+  - {fileID: -2432090755550338912, guid: 1f6f94f1bd89b5f468f9607570e92019, type: 3}
+  - {fileID: -2432090755550338912, guid: 6ce9ad361beb1154a818998cc1a44db2, type: 3}
+  - {fileID: -2432090755550338912, guid: b44c91c2a62a6e34fa7899bd37a8f4e5, type: 3}
+  - {fileID: -2432090755550338912, guid: f2777320b556e4d41bc3d68bb79036b8, type: 3}
+--- !u!65 &8381732933303380809
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,5 +246,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3, y: 5, z: 1.3}
-  m_Center: {x: 0.15, y: 2.5, z: -0.049999982}
+  m_Size: {x: 1.3, y: 4, z: 1.3}
+  m_Center: {x: 0.15, y: 2, z: -0.049999982}

@@ -34,8 +34,4 @@ public class Log : ForceGrabLogic
         }
         return closest;
     }
-    public void OllisionEnter(Collision collision)
-    {
-
-    }
 }

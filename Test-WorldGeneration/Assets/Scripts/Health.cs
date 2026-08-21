@@ -1,10 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Health : MonoBehaviour, IDamagebole
 {
     [Header("HealthSettings")]
-    [SerializeField] private float MaxHealth = 100f;
+    [field: SerializeField] public float MaxHealth { get; private set; }
     [Header("HealtRegen")]
     [SerializeField] private float HealthRegen = 0.1f;
     [SerializeField] private float HealtRegenInterval = 0.5f;
@@ -38,7 +39,6 @@ public class Health : MonoBehaviour, IDamagebole
         }
         else
         {
-            TakenDamage.Invoke(CurrentHealth);
             Dead.Invoke();
         }
     }
